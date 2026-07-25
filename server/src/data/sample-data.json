@@ -1,0 +1,115 @@
+{
+  "users": [
+    {
+      "email": "john@example.com",
+      "password": "password123",
+      "name": "John Doe",
+      "role": "CUSTOMER"
+    },
+    {
+      "email": "jane@example.com",
+      "password": "password123",
+      "name": "Jane Smith",
+      "role": "CUSTOMER"
+    },
+    {
+      "email": "pizzaowner@example.com",
+      "password": "password123",
+      "name": "Mario Rossi",
+      "role": "RESTAURANT_OWNER"
+    },
+    {
+      "email": "burgerowner@example.com",
+      "password": "password123",
+      "name": "Bob Johnson",
+      "role": "RESTAURANT_OWNER"
+    },
+    {
+      "email": "sushiowner@example.com",
+      "password": "password123",
+      "name": "Yuki Tanaka",
+      "role": "RESTAURANT_OWNER"
+    }
+  ],
+  "restaurants": [
+    {
+      "name": "Pizza Palace",
+      "address": "123 Main Street, New York, NY 10001"
+    },
+    {
+      "name": "Burger Barn",
+      "address": "456 Oak Avenue, Los Angeles, CA 90001"
+    },
+    {
+      "name": "Sushi Supreme",
+      "address": "789 Elm Drive, San Francisco, CA 94102"
+    }
+  ],
+  "menuItems": [
+    {
+      "name": "Margherita Pizza",
+      "description": "Classic tomato sauce, mozzarella, fresh basil",
+      "price": 12.99
+    },
+    {
+      "name": "Pepperoni Pizza",
+      "description": "Tomato sauce, mozzarella, pepperoni",
+      "price": 14.99
+    },
+    {
+      "name": "Cheeseburger",
+      "description": "Beef patty, cheddar cheese, lettuce, tomato, onion",
+      "price": 9.99
+    },
+    {
+      "name": "Bacon Burger",
+      "description": "Beef patty, bacon, cheddar, pickles, special sauce",
+      "price": 11.99
+    },
+    {
+      "name": "Veggie Burger",
+      "description": "Plant-based patty, avocado, lettuce, tomato",
+      "price": 10.99
+    },
+    {
+      "name": "Salmon Roll",
+      "description": "Fresh salmon, cucumber, avocado, rice, nori",
+      "price": 15.99
+    },
+    {
+      "name": "Dragon Roll",
+      "description": "Shrimp tempura, eel, avocado, spicy mayo",
+      "price": 18.99
+    },
+    {
+      "name": "California Roll",
+      "description": "Crab, avocado, cucumber, sesame seeds",
+      "price": 12.99
+    }
+  ],
+  "orders": [
+    {
+      "status": "PENDING",
+      "totalAmount": 27.98
+    },
+    {
+      "status": "PREPARING",
+      "totalAmount": 45.97
+    },
+    {
+      "status": "DELIVERED",
+      "totalAmount": 15.99
+    }
+  ],
+  "orderItems": [
+    {
+      "quantity": 2
+    },
+    {
+      "quantity": 1
+    },
+    {
+      "quantity": 3
+    }
+  ]
+}

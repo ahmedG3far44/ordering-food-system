@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+}
+
+@utility nb-border {
+  border: 3px solid var(--primary);
+}
+
+@utility nb-shadow {
+  box-shadow: 4px 4px 0px 0px var(--primary);
+}
+
+@utility nb-shadow-sm {
+  box-shadow: 2px 2px 0px 0px var(--primary);
+}
+
+:root {
+  --primary: #0f172a;
+  --accent: #f8fafc;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--accent);
+  color: var(--primary);
+}
+
+.nb-button {
+  @apply nb-border nb-shadow px-4 py-2 font-bold;
+  transition: all 0.3s ease-out;
+}
+
+.nb-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.nb-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+button {
+  transition: all 0.3s ease-out;
+}
+
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+a {
+  transition: all 0.3s ease-out;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
