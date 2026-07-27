@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
 mongoose.set('strictPopulate', false);
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/food';
+function getMongoUri(): string {
+  return process.env.MONGO_URI || 'mongodb://localhost:27017/food';
+}
 
 function transformDecimal128(doc: any, ret: any) {
   for (const key of Object.keys(ret)) {
@@ -19,7 +23,9 @@ mongoose.set('toObject', { virtuals: true, transform: transformDecimal128 });
 
 export async function connectDB() {
   try {
-    await mongoose.connect(MONGO_URI);
+    dotenv.config();
+    const uri = getMongoUri();
+    await mongoose.connect(uri);
     console.log('MongoDB connected successfully');
 
     mongoose.connection.on('error', (err) => {
