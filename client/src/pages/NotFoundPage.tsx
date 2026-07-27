@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Home, Search } from 'lucide-react';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const NotFoundPage = () => {
+  usePageMeta({
+    title: '404 Page Not Found - Urban Bistro',
+    description: 'The page you are looking for does not exist or has been moved. Browse our restaurants or go back home.',
+  });
   return (
-    <div className="max-w-7xl mx-auto px-4 py-24 font-mono">
+    <main className="max-w-7xl mx-auto px-4 py-24 font-mono">
       <div className="text-center">
         <div className="mb-8">
           <Search size={80} className="mx-auto text-slate-300" />
@@ -29,7 +34,7 @@ const NotFoundPage = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

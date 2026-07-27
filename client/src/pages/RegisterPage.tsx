@@ -5,6 +5,7 @@ import PasswordInput from '../components/shared/PasswordInput';
 import type { UserRole } from '../types';
 import { Store } from 'lucide-react';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 interface FormErrors {
   name?: string;
@@ -33,6 +34,11 @@ function validateForm(name: string, email: string, password: string): FormErrors
 }
 
 const RegisterPage = () => {
+  usePageMeta({
+    title: 'Create Account - Urban Bistro',
+    description: 'Join Urban Bistro as a customer or restaurant owner. Start ordering or managing your business today.',
+  });
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -59,15 +65,20 @@ const RegisterPage = () => {
       });
       toast.success('Account created successfully! Please login.');
       navigate('/login');
-    } catch {
-      toast.error('Registration failed. Please try again.');
+    } catch (err: any) {
+      const serverErrors = err?.response?.data?.errors;
+      if (serverErrors) {
+        setErrors(serverErrors);
+      } else {
+        toast.error(err?.response?.data?.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-accent flex items-center justify-center p-4">
+    <main className="min-h-screen bg-accent flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white border-3 border-primary shadow-[8px_8px_0px_0px_var(--primary)] p-8 font-mono">
         <Link to="/" className="flex items-center gap-2 mb-6 group w-fit">
           <Store className="text-primary group-hover:rotate-12 transition-transform duration-300" size={28} />
@@ -78,7 +89,7 @@ const RegisterPage = () => {
         <h1 className="text-3xl font-black text-primary uppercase mb-2">Join Us</h1>
         <p className="text-slate-500 mb-8 text-sm">Create your account to start ordering or managing.</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           <div className="flex flex-col gap-2">
             <label className="font-bold text-primary uppercase text-xs">Full Name</label>
             <input
@@ -145,7 +156,7 @@ const RegisterPage = () => {
           Already have an account? <Link to="/login" className="text-primary font-bold underline decoration-2 underline-offset-2">Login here</Link>
         </p>
       </div>
-    </div>
+    </main>
   );
 };
 

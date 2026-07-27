@@ -1,22 +1,24 @@
+import { Toaster } from './components/layout/Toast';
 import { useEffect } from 'react';
+import { RoleGuard } from './components/auth/RoleGuard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useThemeStore, themePalettes } from './store/themeStore';
-import LandingPage from './pages/LandingPage';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
+
+
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import RestaurantPage from './pages/RestaurantPage';
+import LandingPage from './pages/LandingPage';
+import Navbar from './components/layout/Navbar';
+import NotFoundPage from './pages/NotFoundPage';
 import CheckoutPage from './pages/CheckoutPage';
+import RegisterPage from './pages/RegisterPage';
+import OwnerMenuPage from './pages/OwnerMenuPage';
+import RestaurantPage from './pages/RestaurantPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import OwnerDashboardPage from './pages/OwnerDashboardPage';
-import OwnerMenuPage from './pages/OwnerMenuPage';
 import OwnerRestaurantsPage from './pages/OwnerRestaurantsPage';
 import OwnerSettingsPage from './pages/OwnerSettingsPage';
-import NotFoundPage from './pages/NotFoundPage';
-import { ProtectedRoute } from './components/auth/ProtectedRoute';
-import { RoleGuard } from './components/auth/RoleGuard';
-import Navbar from './components/layout/Navbar';
-import { Toaster } from 'sonner';
 
 function App() {
   const { color } = useThemeStore();
@@ -29,7 +31,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Toaster position="bottom-right" richColors closeButton />
+      <Toaster />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={

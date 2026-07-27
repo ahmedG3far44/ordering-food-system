@@ -7,6 +7,7 @@ import { useAuthStore } from '../store/authStore';
 import { useThemeStore, type ThemeColor } from '../store/themeStore';
 import { Clock, Package, CheckCircle, XCircle, Utensils, ChefHat, DollarSign, TrendingUp, Store, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const convertPrice = (price: number | { $numberDecimal: string } | undefined): number => {
   if (typeof price === 'number') return price;
@@ -26,6 +27,11 @@ const statusConfig = {
 type DateFilter = '7days' | '30days' | '90days' | 'custom';
 
 const OwnerDashboardPage = () => {
+  usePageMeta({
+    title: 'Owner Dashboard - Urban Bistro',
+    description: 'Manage your restaurants, view orders, and track sales analytics.',
+  });
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
@@ -194,7 +200,7 @@ const OwnerDashboardPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-4xl font-black text-primary uppercase font-mono">Dashboard</h1>
@@ -517,7 +523,7 @@ const OwnerDashboardPage = () => {
       {activeTab === 'settings' && (
         <SettingsContent />
       )}
-    </div>
+    </main>
   );
 };
 
@@ -559,23 +565,25 @@ const SettingsContent = () => {
       </div>
 
       <div className="bg-white border-3 border-primary nb-shadow p-6">
-        <h2 className="text-xl font-bold text-primary uppercase mb-4">Preview</h2>
-        <div className="space-y-4">
-          <div className="h-12 bg-primary/10 border-2 border-primary rounded flex items-center px-4 font-black text-primary text-sm uppercase">
-            Sample Button
+      <h2 className="text-xl font-bold text-primary uppercase mb-4">Preview</h2>
+          <div className="space-y-4">
+            <div className="h-12 bg-primary/10 border-2 border-primary rounded flex items-center px-4 font-black text-primary text-sm uppercase">
+              Sample Button
+            </div>
+            <div className="p-4 border-2 border-primary bg-primary/5 text-primary text-xs font-bold uppercase">
+              This is how your brand colors will look across the application.
+            </div>
+            <div className="flex gap-2">
+              <div className="w-full h-4 bg-primary" />
+              <div className="w-full h-4 bg-primary/50" />
+              <div className="w-full h-4 bg-primary/20" />
+            </div>
           </div>
-          <div className="p-4 border-2 border-primary bg-primary/5 text-primary text-xs font-bold uppercase">
-            This is how your brand colors will look across the application.
-          </div>
-          <div className="flex gap-2">
-            <div className="w-full h-4 bg-primary" />
-            <div className="w-full h-4 bg-primary/50" />
-            <div className="w-full h-4 bg-primary/20" />
-          </div>
-        </div>
       </div>
     </div>
   );
 };
+
+
 
 export default OwnerDashboardPage;

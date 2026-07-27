@@ -5,6 +5,7 @@ import { authService } from '../api/auth';
 import PasswordInput from '../components/shared/PasswordInput';
 import { Store } from 'lucide-react';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 interface FormErrors {
   email?: string;
@@ -27,6 +28,11 @@ function validateForm(email: string, password: string): FormErrors {
 }
 
 const LoginPage = () => {
+  usePageMeta({
+    title: 'Login - Urban Bistro',
+    description: 'Sign in to your Urban Bistro account to order food or manage your restaurant.',
+  });
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<FormErrors>({});
@@ -50,15 +56,20 @@ const LoginPage = () => {
       } else {
         navigate('/restaurants');
       }
-    } catch {
-      toast.error('Login failed. Please check your credentials.');
+    } catch (err: any) {
+      const serverErrors = err?.response?.data?.errors;
+      if (serverErrors) {
+        setErrors(serverErrors);
+      } else {
+        toast.error(err?.response?.data?.message || 'Login failed. Please check your credentials.');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-accent flex items-center justify-center p-4">
+    <main className="min-h-screen bg-accent flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white border-3 border-primary shadow-[8px_8px_0px_0px_var(--primary)] p-8 font-mono">
         <Link to="/" className="flex items-center gap-2 mb-6 group w-fit">
           <Store className="text-primary group-hover:rotate-12 transition-transform duration-300" size={28} />
@@ -69,7 +80,7 @@ const LoginPage = () => {
         <h1 className="text-3xl font-black text-primary uppercase mb-2">Login</h1>
         <p className="text-slate-500 mb-8 text-sm">Enter your credentials to enter the bistro.</p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           <div className="flex flex-col gap-2">
             <label className="font-bold text-primary uppercase text-xs">Email Address</label>
             <input
@@ -98,7 +109,7 @@ const LoginPage = () => {
           Don't have an account? <Link to="/register" className="text-primary font-bold underline decoration-2 underline-offset-2">Register here</Link>
         </p>
       </div>
-    </div>
+    </main>
   );
 };
 

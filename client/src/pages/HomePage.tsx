@@ -4,8 +4,13 @@ import { restaurantService } from '../api/restaurants';
 import type { Restaurant } from '../types';
 import { PLACEHOLDER_IMAGES, handleImageError } from '../utils/constants';
 import { Star, Clock } from 'lucide-react';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const HomePage = () => {
+  usePageMeta({
+    title: 'Browse Restaurants - Urban Bistro',
+    description: 'Explore hand-picked urban eateries. Order from the best restaurants in town with fast delivery.',
+  });
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,7 +42,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <header className="mb-12 text-center md:text-left">
         <h1 className="text-5xl font-black text-primary uppercase tracking-tighter font-mono mb-4">
           Crave <span className="underline decoration-primary decoration-4">Something</span>
@@ -80,7 +85,7 @@ const HomePage = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </main>
   );
 };
 

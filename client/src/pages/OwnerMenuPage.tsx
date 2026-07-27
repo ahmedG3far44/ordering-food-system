@@ -7,6 +7,7 @@ import { getCurrencySymbol, convertPrice } from '../utils/currency';
 import { Plus, Trash2, Edit, ArrowLeft, UtensilsCrossed } from 'lucide-react';
 import ImageUploader from '../components/shared/ImageUploader';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const imagePlaceholder = 'https://imgs.search.brave.com/YZ1SjLQxhbj0Pd5D19P6s61NQ7GMYKNHOnjLmt8DrdQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/c2hvcGlmeS5jb20v/cy9maWxlcy8xLzA1/MzMvMjA4OS9maWxl/cy9wbGFjZWhvbGRl/ci1pbWFnZXMtaW1h/Z2VfbGFyZ2UucG5n/P3Y9MTUzMDEyOTA4/MQ';
 
@@ -37,6 +38,11 @@ function validateMenuItem(name: string, description: string, price: string): For
 }
 
 const OwnerMenuPage = () => {
+  usePageMeta({
+    title: 'Menu Management - Urban Bistro',
+    description: 'Add, edit, and manage your restaurant menu items and pricing.',
+  });
+
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -230,7 +236,7 @@ const OwnerMenuPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <Link
         to="/owner/dashboard"
         className="inline-flex items-center gap-2 text-sm font-bold text-primary mb-8 hover:underline"
@@ -278,7 +284,7 @@ const OwnerMenuPage = () => {
 
       <div className="mb-8">
         {showAddForm ? (
-          <form onSubmit={handleAddItem} className="bg-white border-3 border-primary nb-shadow p-6 font-mono max-w-xl">
+          <form onSubmit={handleAddItem} className="bg-white border-3 border-primary nb-shadow p-6 font-mono max-w-xl" noValidate>
             <h3 className="text-lg font-black text-primary uppercase mb-4">Add New Item</h3>
             <div className="space-y-4">
               <div>
@@ -352,7 +358,7 @@ const OwnerMenuPage = () => {
       </div>
 
       {showEditForm && editingItem && (
-        <form onSubmit={handleUpdateItem} className="bg-white border-3 border-primary nb-shadow p-6 font-mono max-w-xl mb-8">
+        <form onSubmit={handleUpdateItem} className="bg-white border-3 border-primary nb-shadow p-6 font-mono max-w-xl mb-8" noValidate>
           <h3 className="text-lg font-black text-primary uppercase mb-4">Edit Item</h3>
           <div className="space-y-4">
             <div>
@@ -449,7 +455,7 @@ const OwnerMenuPage = () => {
       {menuItems.length === 0 && (
         <p className="text-slate-500 text-center py-8">No menu items yet. Add your first item!</p>
       )}
-    </div>
+    </main>
   );
 };
 

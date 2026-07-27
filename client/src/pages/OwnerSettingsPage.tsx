@@ -1,6 +1,11 @@
 import { useThemeStore, type ThemeColor } from '../store/themeStore';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const OwnerSettingsPage = () => {
+  usePageMeta({
+    title: 'Brand Settings - Urban Bistro',
+    description: 'Customize your Urban Bistro brand colors and visual identity.',
+  });
   const { color, setColor } = useThemeStore();
 
   const colors: { label: string; value: ThemeColor; bg: string }[] = [
@@ -12,7 +17,7 @@ const OwnerSettingsPage = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 font-mono">
+    <main className="max-w-4xl mx-auto px-4 py-12 font-mono">
       <header className="mb-12">
         <h1 className="text-4xl font-black text-primary uppercase mb-2">Brand Settings</h1>
         <p className="text-slate-500">Customize the visual identity of your bistro.</p>
@@ -60,7 +65,7 @@ const OwnerSettingsPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

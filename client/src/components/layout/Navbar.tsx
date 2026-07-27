@@ -69,7 +69,7 @@ const Navbar = () => {
               <div className="flex items-center gap-3 pl-6 border-l-2 border-slate-200">
                 <div className="hidden sm:block text-right">
                   <p className="text-[10px] font-bold text-slate-400 uppercase leading-none">Logged in as</p>
-                  <p className="text-xs font-black text-primary uppercase">{user.role === 'RESTAURANT_OWNER' ? 'Owner' : 'Customer'}</p>
+                  <p className="text-xs font-black text-primary uppercase">{user.name}</p>
                 </div>
                 <button
                   onClick={handleLogout}

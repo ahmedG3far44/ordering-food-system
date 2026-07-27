@@ -6,6 +6,7 @@ import type { Order, MenuItem } from '../types';
 import { useAuthStore } from '../store/authStore';
 import { convertPrice, formatPrice } from '../utils/currency';
 import { Clock, Package, CheckCircle, XCircle, ShoppingCart } from 'lucide-react';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const statusConfig = {
   PENDING: { label: 'Pending', icon: Clock, color: 'text-yellow-600 bg-yellow-100 border-yellow-600' },
@@ -15,6 +16,11 @@ const statusConfig = {
 };
 
 const OrderHistoryPage = () => {
+  usePageMeta({
+    title: 'My Orders - Urban Bistro',
+    description: 'View your order history and track order status from Urban Bistro.',
+  });
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuthStore();
@@ -108,7 +114,7 @@ const OrderHistoryPage = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-black text-primary uppercase mb-12 font-mono">My Orders</h1>
 
       <div className="space-y-6">
@@ -163,7 +169,7 @@ const OrderHistoryPage = () => {
           );
         })}
       </div>
-    </div>
+    </main>
   );
 };
 

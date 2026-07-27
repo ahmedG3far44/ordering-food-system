@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Utensils, ShoppingCart, ShieldCheck, Zap, ArrowRight } from 'lucide-react';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { appStructuredData, renderJsonLd } from '../utils/seo';
 
 const FeatureCard = ({ icon: Icon, title, description }: any) => (
   <div className="bg-white border-3 border-primary nb-shadow p-6 font-mono hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
@@ -12,8 +15,17 @@ const FeatureCard = ({ icon: Icon, title, description }: any) => (
 );
 
 const LandingPage = () => {
+  usePageMeta({
+    title: 'Urban Bistro - Food Ordering Platform',
+    description: 'The definitive food ordering experience. Browse curated restaurants, order online, and manage your business with Urban Bistro.',
+  });
+
+  useEffect(() => {
+    renderJsonLd(appStructuredData());
+  }, []);
+
   return (
-    <div className="min-h-screen bg-accent font-mono">
+    <main className="min-h-screen bg-accent font-mono">
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 px-4">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
@@ -46,7 +58,7 @@ const LandingPage = () => {
             <div className="relative bg-white border-3 border-primary nb-shadow p-4 rotate-3 hover:rotate-0 transition-transform duration-500">
               <img 
                 src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" 
-                alt="Food" 
+                alt="Gourmet steak with roasted vegetables and herbs" 
                 className="w-full h-auto border-2 border-primary"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary text-white p-4 border-2 border-primary font-black uppercase text-sm nb-shadow-sm rotate-[-6deg]">
@@ -113,7 +125,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 

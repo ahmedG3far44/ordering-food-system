@@ -8,6 +8,8 @@ import { convertPrice, formatPrice } from '../utils/currency';
 import { PLACEHOLDER_IMAGES, handleImageError } from '../utils/constants';
 import { Plus, Minus } from 'lucide-react';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
+import { restaurantStructuredData, renderJsonLd } from '../utils/seo';
 
 const RestaurantPage = () => {
   const { id } = useParams();
@@ -17,6 +19,19 @@ const RestaurantPage = () => {
   const { addItem, items, updateQuantity } = useCartStore();
   const { user } = useAuthStore();
   const isOwner = user?.role === 'RESTAURANT_OWNER';
+
+  usePageMeta({
+    title: restaurant ? `${restaurant.name} - Urban Bistro` : 'Restaurant - Urban Bistro',
+    description: restaurant
+      ? `Browse the menu and order from ${restaurant.name}. ${restaurant.cuisine || 'Various cuisines'} - ${restaurant.address || ''}`.trim()
+      : 'View restaurant details and menu.',
+  });
+
+  useEffect(() => {
+    if (restaurant) {
+      renderJsonLd(restaurantStructuredData(restaurant));
+    }
+  }, [restaurant]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +99,7 @@ const RestaurantPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Restaurant Info */}
         <div className="lg:col-span-1">
@@ -173,7 +188,7 @@ const RestaurantPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -7,6 +7,7 @@ import { PLACEHOLDER_IMAGES, handleImageError } from '../utils/constants';
 import { toast } from 'sonner';
 import { Plus, Trash2, Edit, Store, ArrowLeft, MapPin, Utensils } from 'lucide-react';
 import ImageUploader from '../components/shared/ImageUploader';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 
 const COUNTRY_DATA: Record<string, { states: Record<string, string>; currency: string; currencySymbol: string; name: string }> = {
@@ -123,6 +124,11 @@ function validateRestaurantForm(name: string, streetAddress: string, country: st
 }
 
 const OwnerRestaurantsPage = () => {
+  usePageMeta({
+    title: 'My Restaurants - Urban Bistro',
+    description: 'Manage your restaurants, add new locations, and update restaurant information.',
+  });
+
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -293,19 +299,19 @@ const OwnerRestaurantsPage = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-12 font-mono">
+  return (
+    <main className="max-w-7xl mx-auto px-4 py-12 font-mono">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="bg-slate-100 border-3 border-primary h-64 animate-pulse" />
           ))}
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <main className="max-w-7xl mx-auto px-4 py-12">
       <Link
         to="/owner/dashboard"
         className="inline-flex items-center gap-2 text-sm font-bold text-primary mb-8 hover:underline"
@@ -332,7 +338,7 @@ const OwnerRestaurantsPage = () => {
           <h3 className="text-lg font-black text-primary uppercase mb-4">
             {editingId ? 'Edit Restaurant' : 'Add New Restaurant'}
           </h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold text-primary uppercase mb-1">Restaurant Name *</label>
@@ -499,7 +505,7 @@ const OwnerRestaurantsPage = () => {
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

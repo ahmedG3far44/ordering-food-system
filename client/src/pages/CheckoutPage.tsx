@@ -6,8 +6,13 @@ import { orderService } from '../api/orders';
 import { convertPrice, formatPrice } from '../utils/currency';
 import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const CheckoutPage = () => {
+  usePageMeta({
+    title: 'Checkout - Urban Bistro',
+    description: 'Review your order and checkout. Complete your food order with Urban Bistro.',
+  });
   const navigate = useNavigate();
   const { items, updateQuantity, clearCart, getTotal, getCurrency } = useCartStore();
   const { user } = useAuthStore();
