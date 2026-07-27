@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { useThemeStore, themePalettes } from './store/themeStore';
 import LandingPage from './pages/LandingPage';
 import HomePage from './pages/HomePage';
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Analytics />
       <Toaster position="bottom-right" richColors closeButton />
       <Routes>
         {/* Public Routes */}
