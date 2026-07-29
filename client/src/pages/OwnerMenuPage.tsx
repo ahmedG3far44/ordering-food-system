@@ -40,7 +40,8 @@ function validateMenuItem(name: string, description: string, price: string): For
 const OwnerMenuPage = () => {
   usePageMeta({
     title: 'Menu Management - Urban Bistro',
-    description: 'Add, edit, and manage your restaurant menu items and pricing.',
+    description: 'Add, edit, and manage your restaurant menu items, descriptions, pricing, and images. Organize your food offerings with the Urban Bistro menu manager.',
+    keywords: 'menu management, restaurant menu, edit menu items, food pricing, menu editor, restaurant owner menu',
   });
 
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -422,11 +423,11 @@ const OwnerMenuPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {menuItems.map((item) => (
           <div key={item?.id || item?._id} className="bg-white border-3 border-primary nb-shadow-sm p-4">
-            <div className="w-full h-32 border-2 border-slate-200 mb-4 overflow-hidden bg-slate-100">
+            <div className="border-2 border-slate-200 mb-4 bg-slate-100">
               <img
                 src={item?.imageUrl ? item.imageUrl : imagePlaceholder}
                 alt={item.name}
-                className="w-full h-full object-cover"
+                className="w-full block"
               />
             </div>
             <h3 className="font-black text-primary uppercase">{item.name}</h3>

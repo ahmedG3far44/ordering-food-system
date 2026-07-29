@@ -5,7 +5,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const NotFoundPage = () => {
   usePageMeta({
     title: '404 Page Not Found - Urban Bistro',
-    description: 'The page you are looking for does not exist or has been moved. Browse our restaurants or go back home.',
+    description: 'The page you are looking for does not exist or has been moved. Browse our curated restaurants or return to the Urban Bistro homepage.',
+    keywords: '404, page not found, error page, urban bistro',
   });
   return (
     <main className="max-w-7xl mx-auto px-4 py-24 font-mono">

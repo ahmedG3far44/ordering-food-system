@@ -4,7 +4,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const OwnerSettingsPage = () => {
   usePageMeta({
     title: 'Brand Settings - Urban Bistro',
-    description: 'Customize your Urban Bistro brand colors and visual identity.',
+    description: 'Customize Urban Bistro brand colors and theme. Choose from slate, green, orange, purple, or blue color palettes for your visual identity.',
+    keywords: 'brand settings, theme colors, customize theme, brand identity, color palette, urban bistro settings',
   });
   const { color, setColor } = useThemeStore();
 

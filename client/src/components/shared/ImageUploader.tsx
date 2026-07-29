@@ -58,6 +58,26 @@ const ImageUploader = ({ currentUrl, onUploadComplete, onClear }: ImageUploaderP
     setProgress(0);
   };
 
+  function mapErrorMessage(err: any): UploadError {
+    if (err.response?.data?.message) {
+      const msg = err.response.data.message;
+      if (msg.toLowerCase().includes('file too large') || msg.toLowerCase().includes('exceeds')) {
+        return { message: 'Image size exceeds the 4MB limit. Please upload a smaller image.', code: 'FILE_TOO_LARGE' };
+      }
+      return { message: msg, code: err.response.data.code };
+    }
+
+    if (err.message === 'Network Error') {
+      return { message: 'Could not reach the server. Check your internet connection and try again.', code: 'NETWORK_ERROR' };
+    }
+
+    if (err.message) {
+      return { message: err.message };
+    }
+
+    return { message: 'Upload failed. Please try again.', code: 'UNKNOWN' };
+  }
+
   const handleUpload = async () => {
     if (!file) return;
 
@@ -80,13 +100,7 @@ const ImageUploader = ({ currentUrl, onUploadComplete, onClear }: ImageUploaderP
         return;
       }
       setState('error');
-      if (err.response?.data?.message) {
-        setError({ message: err.response.data.message });
-      } else if (err.message) {
-        setError({ message: err.message });
-      } else {
-        setError({ message: 'Upload failed. Please try again.' });
-      }
+      setError(mapErrorMessage(err));
     }
   };
 

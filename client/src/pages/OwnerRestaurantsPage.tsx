@@ -126,7 +126,8 @@ function validateRestaurantForm(name: string, streetAddress: string, country: st
 const OwnerRestaurantsPage = () => {
   usePageMeta({
     title: 'My Restaurants - Urban Bistro',
-    description: 'Manage your restaurants, add new locations, and update restaurant information.',
+    description: 'Manage your restaurants on Urban Bistro. Add new locations, update restaurant information, cuisines, and images. Complete restaurant management for owners.',
+    keywords: 'manage restaurants, restaurant locations, restaurant management, add restaurant, edit restaurant, owner restaurants',
   });
 
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -460,11 +461,11 @@ const OwnerRestaurantsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {restaurants.map((restaurant) => (
             <div key={restaurant.id} className="bg-white border-3 border-primary nb-shadow-sm overflow-hidden">
-              <div className="h-48 overflow-hidden border-b-3 border-primary bg-slate-100">
+              <div className="border-b-3 border-primary bg-slate-100">
                 <img
                   src={restaurant.imageUrl || PLACEHOLDER_IMAGES.RESTAURANT}
                   alt={restaurant.name}
-                  className="w-full h-full object-cover"
+                  className="w-full block"
                   onError={(e) => handleImageError(e, PLACEHOLDER_IMAGES.RESTAURANT)}
                 />
               </div>

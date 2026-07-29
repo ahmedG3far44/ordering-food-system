@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../api/auth';
@@ -30,7 +30,8 @@ function validateForm(email: string, password: string): FormErrors {
 const LoginPage = () => {
   usePageMeta({
     title: 'Login - Urban Bistro',
-    description: 'Sign in to your Urban Bistro account to order food or manage your restaurant.',
+    description: 'Sign in to your Urban Bistro account to order food online or manage your restaurant. Access your orders, track deliveries, and update your profile.',
+    keywords: 'login, sign in, food ordering account, restaurant owner login, customer login',
   });
 
   const [email, setEmail] = useState('');
@@ -38,7 +39,13 @@ const LoginPage = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const { user, setAuth } = useAuthStore();
+
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === 'RESTAURANT_OWNER' ? '/owner/dashboard' : '/restaurants', { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

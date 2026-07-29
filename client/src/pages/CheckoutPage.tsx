@@ -11,7 +11,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const CheckoutPage = () => {
   usePageMeta({
     title: 'Checkout - Urban Bistro',
-    description: 'Review your order and checkout. Complete your food order with Urban Bistro.',
+    description: 'Review your cart and complete your food order. Fast checkout for your favorite meals from curated restaurants on Urban Bistro.',
+    keywords: 'checkout, place order, food order review, cart, complete order, food checkout',
   });
   const navigate = useNavigate();
   const { items, updateQuantity, clearCart, getTotal, getCurrency } = useCartStore();

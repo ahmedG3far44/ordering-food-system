@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 interface PageMeta {
   title: string;
   description?: string;
+  keywords?: string;
   ogImage?: string;
   ogType?: string;
 }
@@ -29,6 +30,11 @@ export function usePageMeta(meta: PageMeta) {
     document.title = meta.title;
 
     setOrUpdateMeta('meta[name="description"]', { name: 'description', content: meta.description ?? '' });
+
+    if (meta.keywords) {
+      setOrUpdateMeta('meta[name="keywords"]', { name: 'keywords', content: meta.keywords });
+    }
+
     setOrUpdateMeta('meta[property="og:title"]', { property: 'og:title', content: meta.title });
     setOrUpdateMeta('meta[property="og:description"]', { property: 'og:description', content: meta.description ?? '' });
     setOrUpdateMeta('meta[property="og:type"]', { property: 'og:type', content: meta.ogType ?? 'website' });
@@ -38,5 +44,5 @@ export function usePageMeta(meta: PageMeta) {
     setOrUpdateMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: meta.title });
     setOrUpdateMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: meta.description ?? '' });
     setOrUpdateMeta('link[rel="canonical"]', { rel: 'canonical', href: `${BASE_URL}${window.location.pathname}` });
-  }, [meta.title, meta.description, meta.ogImage, meta.ogType]);
+  }, [meta.title, meta.description, meta.keywords, meta.ogImage, meta.ogType]);
 }

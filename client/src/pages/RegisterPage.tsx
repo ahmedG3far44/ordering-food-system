@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../api/auth';
+import { useAuthStore } from '../store/authStore';
 import PasswordInput from '../components/shared/PasswordInput';
 import type { UserRole } from '../types';
 import { Store } from 'lucide-react';
@@ -36,7 +37,8 @@ function validateForm(name: string, email: string, password: string): FormErrors
 const RegisterPage = () => {
   usePageMeta({
     title: 'Create Account - Urban Bistro',
-    description: 'Join Urban Bistro as a customer or restaurant owner. Start ordering or managing your business today.',
+    description: 'Join Urban Bistro as a customer or restaurant owner. Sign up to start ordering food online or managing your restaurant business today.',
+    keywords: 'create account, sign up, register, food ordering registration, restaurant owner signup, new account',
   });
 
   const [formData, setFormData] = useState({
@@ -47,7 +49,14 @@ const RegisterPage = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuthStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === 'RESTAURANT_OWNER' ? '/owner/dashboard' : '/restaurants', { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

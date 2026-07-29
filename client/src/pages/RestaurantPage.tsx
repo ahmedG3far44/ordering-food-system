@@ -9,7 +9,7 @@ import { PLACEHOLDER_IMAGES, handleImageError } from '../utils/constants';
 import { Plus, Minus } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { restaurantStructuredData, renderJsonLd } from '../utils/seo';
+import { restaurantStructuredData, breadcrumbStructuredData, renderJsonLd } from '../utils/seo';
 
 const RestaurantPage = () => {
   const { id } = useParams();
@@ -23,15 +23,28 @@ const RestaurantPage = () => {
   usePageMeta({
     title: restaurant ? `${restaurant.name} - Urban Bistro` : 'Restaurant - Urban Bistro',
     description: restaurant
-      ? `Browse the menu and order from ${restaurant.name}. ${restaurant.cuisine || 'Various cuisines'} - ${restaurant.address || ''}`.trim()
-      : 'View restaurant details and menu.',
+      ? `Order food online from ${restaurant.name}. Browse the menu, choose from ${restaurant.cuisine || 'various cuisines'}, and get fast delivery in ${restaurant.deliveryTime || '30 min'}. ${restaurant.address || ''}`.trim()
+      : 'View restaurant details, browse menu items, and order food online for delivery.',
+    keywords: restaurant
+      ? `${restaurant.name}, ${restaurant.cuisine || 'restaurant'} menu, order food, food delivery, ${restaurant.address || 'restaurant near me'}`
+      : 'restaurant menu, order food, restaurant details, food delivery',
   });
 
   useEffect(() => {
     if (restaurant) {
-      renderJsonLd(restaurantStructuredData(restaurant));
+      renderJsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
+          restaurantStructuredData(restaurant),
+          breadcrumbStructuredData([
+            { name: 'Home', url: '/' },
+            { name: 'Restaurants', url: '/restaurants' },
+            { name: restaurant.name, url: `/restaurant/${id}` },
+          ]),
+        ],
+      });
     }
-  }, [restaurant]);
+  }, [restaurant, id]);
 
   useEffect(() => {
     const fetchData = async () => {

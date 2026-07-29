@@ -9,7 +9,8 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const HomePage = () => {
   usePageMeta({
     title: 'Browse Restaurants - Urban Bistro',
-    description: 'Explore hand-picked urban eateries. Order from the best restaurants in town with fast delivery.',
+    description: 'Explore hand-picked urban eateries near you. Order from the best restaurants in town with fast delivery. Italian, Japanese, healthy, fast food, and more cuisines available.',
+    keywords: 'restaurants near me, food delivery, best restaurants, urban eateries, order food, restaurant listings, cuisine types, local restaurants',
   });
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,11 +58,11 @@ const HomePage = () => {
             to={`/restaurant/${res._id || res.id}`}
             className="group bg-white border-3 border-primary nb-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all block overflow-hidden"
           >
-            <div className="h-48 overflow-hidden border-b-3 border-primary bg-slate-100">
+            <div className="border-b-3 border-primary bg-slate-100">
               <img
                 src={res.imageUrl || PLACEHOLDER_IMAGES.RESTAURANT}
                 alt={res.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full block"
                 onError={(e) => handleImageError(e, PLACEHOLDER_IMAGES.RESTAURANT)}
               />
             </div>

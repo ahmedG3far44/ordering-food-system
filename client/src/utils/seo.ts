@@ -29,14 +29,19 @@ export function appStructuredData() {
     name: 'Urban Bistro',
     url: BASE_URL,
     description:
-      'The definitive food ordering experience. Browse restaurants, order food, and manage your business with a brutalist-designed platform.',
+      'The definitive food ordering experience. Browse curated restaurants, order food online, and manage your business with a brutalist-designed platform.',
     applicationCategory: 'FoodOrdering',
     operatingSystem: 'Web',
+    author: {
+      '@type': 'Organization',
+      name: 'Urban Bistro',
+    },
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
     },
+    keywords: 'food ordering, online food delivery, restaurant management, urban dining, bistro',
   };
 }
 
@@ -46,18 +51,31 @@ export function restaurantStructuredData(restaurant: {
   cuisine?: string;
   imageUrl?: string;
   rating?: number;
+  description?: string;
 }) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Restaurant',
     name: restaurant.name,
     image: restaurant.imageUrl,
+    description: restaurant.description || `Order from ${restaurant.name} on Urban Bistro. ${restaurant.cuisine || 'Various cuisines'} delivered to your door.`,
     address: restaurant.address
       ? { '@type': 'PostalAddress', streetAddress: restaurant.address }
       : undefined,
-    servesCuisine: restaurant.cuisine,
+    servesCuisine: restaurant.cuisine || 'Various',
     aggregateRating: restaurant.rating
-      ? { '@type': 'AggregateRating', ratingValue: restaurant.rating }
+      ? { '@type': 'AggregateRating', ratingValue: restaurant.rating, bestRating: 5 }
       : undefined,
+  };
+}
+
+export function breadcrumbStructuredData(items: { name: string; url: string }[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: `${BASE_URL}${item.url}`,
+    })),
   };
 }

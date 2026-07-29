@@ -59,7 +59,8 @@ const OwnerDashboardPage = () => {
   usePageMeta({
     title: "Owner Dashboard - Urban Bistro",
     description:
-      "Manage your restaurants, view orders, and track sales analytics.",
+      "Manage your restaurants, view incoming orders, and track sales analytics and performance metrics. Restaurant owner control panel for Urban Bistro.",
+    keywords: "restaurant owner dashboard, sales analytics, order management, restaurant management, business performance, owner panel",
   });
 
   const [orders, setOrders] = useState<Order[]>([]);
